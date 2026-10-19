@@ -122,7 +122,9 @@ async def test_loader_accepts_integration(hass: HomeAssistant) -> None:
     integration = await async_get_integration(hass, DOMAIN)
     assert not integration.is_built_in
     # The release script sets the version on every release: the loader must report what the manifest says.
-    manifest = json.loads((ROOT / "custom_components" / DOMAIN / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads(
+        (ROOT / "custom_components" / DOMAIN / "manifest.json").read_text(encoding="utf-8")
+    )
     assert integration.version == AwesomeVersion(manifest["version"])
     assert integration.config_flow
     assert integration.iot_class == "cloud_push"
