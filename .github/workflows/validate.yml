@@ -1,0 +1,56 @@
+# CI for the standalone FYES Home Assistant repository (this folder becomes its root
+# when it is published; inside the FYES Cloud monorepo GitHub ignores this file).
+name: Validate
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+jobs:
+  hassfest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: home-assistant/actions/hassfest@master
+
+  hacs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/action@main
+        with:
+          category: integration
+          # Remove once the FYES icon is merged into home-assistant/brands.
+          ignore: brands
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: latest Home Assistant
+            python: "3.14"
+            harness: pytest-homeassistant-custom-component
+          - name: oldest supported (2025.1)
+            python: "3.13"
+            harness: pytest-homeassistant-custom-component==0.13.205 pycares==4.5.0
+    name: tests (${{ matrix.name }})
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv venv --python ${{ matrix.python }} .venv
+      - run: uv pip install --python .venv/bin/python --prerelease=allow ${{ matrix.harness }}
+      - run: .venv/bin/python -m pytest -q
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx ruff check .
+      - run: uvx ruff format --check .

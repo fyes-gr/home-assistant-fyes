@@ -1,0 +1,22 @@
+{
+  "entity": {
+    "button": {
+      "open": {
+        "default": "mdi:door-open"
+      }
+    },
+    "switch": {
+      "gate": {
+        "default": "mdi:gate",
+        "state": {
+          "on": "mdi:gate-open"
+        }
+      }
+    },
+    "event": {
+      "wall_button": {
+        "default": "mdi:gesture-tap-button"
+      }
+    }
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect your FYES home",
+        "description": "Every FYES light, shutter, sensor, thermostat, scenario and the alarm will appear in Home Assistant, live. FYES stays in charge: commands go through the same path as the FYES app.",
+        "menu_options": {
+          "email": "Sign in with my email",
+          "token": "I have a token"
+        }
+      },
+      "email": {
+        "title": "Sign in to FYES",
+        "description": "Enter the email you use in the FYES app. We will email you a 6-digit code.",
+        "data": {
+          "email": "Email"
+        },
+        "data_description": {
+          "email": "The email of your FYES account."
+        },
+        "sections": {
+          "advanced": {
+            "name": "Advanced",
+            "data": {
+              "url": "Server"
+            },
+            "data_description": {
+              "url": "Leave as it is unless you run your own FYES server (for example a local hub)."
+            }
+          }
+        }
+      },
+      "code": {
+        "title": "Enter the code",
+        "description": "We sent a 6-digit code to {email}. It is valid for 10 minutes.",
+        "data": {
+          "code": "Code"
+        }
+      },
+      "home": {
+        "title": "Pick a home",
+        "description": "Which FYES home should Home Assistant show? You can add more homes later.",
+        "data": {
+          "home_id": "Home"
+        }
+      },
+      "token": {
+        "title": "Use a token",
+        "description": "Create a token in the FYES app: Settings → Integrations → Home Assistant. It starts with fyes_.",
+        "data": {
+          "token": "Token"
+        },
+        "data_description": {
+          "token": "The token is shown only once in the app. You can revoke it there at any time."
+        },
+        "sections": {
+          "advanced": {
+            "name": "Advanced",
+            "data": {
+              "url": "Server"
+            },
+            "data_description": {
+              "url": "Leave as it is unless you run your own FYES server (for example a local hub)."
+            }
+          }
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in to FYES again",
+        "description": "FYES no longer accepts the connection for {home} (the token was revoked or your access changed). Sign in again to reconnect.",
+        "menu_options": {
+          "email": "Sign in with my email",
+          "token": "I have a token"
+        }
+      },
+      "reconfigure": {
+        "title": "Change the FYES server",
+        "description": "Only for a FYES server of your own (for example a local hub) that moved. The connection for {home} stays the same.",
+        "data": {
+          "url": "Server"
+        },
+        "data_description": {
+          "url": "The web address of the FYES server, starting with https:// or http://."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach FYES. Check the internet connection and try again.",
+      "invalid_auth": "FYES did not accept this token.",
+      "invalid_code": "The code is wrong or has expired.",
+      "invalid_email": "This does not look like an email address.",
+      "invalid_url": "The server must be a web address that starts with https:// or http://.",
+      "not_allowed": "This account may not connect a FYES home to Home Assistant.",
+      "rate_limited": "Too many attempts. Wait a minute and try again.",
+      "unknown": "Something unexpected went wrong."
+    },
+    "abort": {
+      "already_configured": "This FYES home is already set up.",
+      "already_in_progress": "This FYES home is already being set up. Finish or close that window first.",
+      "cannot_connect": "Could not reach FYES. Check the internet connection and try again.",
+      "no_homes": "This account has no FYES home yet.",
+      "not_allowed": "This account may not connect this home to Home Assistant.",
+      "reauth_successful": "Signed in again. The FYES home is connected.",
+      "reconfigure_successful": "The FYES server was changed.",
+      "too_many_tokens": "This account already has the most connections for this home. Remove an old one in the FYES app (Settings → Integrations → Home Assistant), then try again.",
+      "unknown": "Something unexpected went wrong.",
+      "wrong_home": "That sign-in belongs to a different FYES home. Sign in with an account or token for this home."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "FYES options",
+        "data": {
+          "show_button_events": "Show wall-button presses",
+          "show_hidden": "Show devices hidden in the app"
+        },
+        "data_description": {
+          "show_button_events": "Adds an event entity for every wall button, so automations can react to presses.",
+          "show_hidden": "Adds the devices that are hidden in the FYES app."
+        }
+      }
+    }
+  },
+  "entity": {
+    "alarm_control_panel": {
+      "security": {
+        "name": "Security"
+      }
+    },
+    "button": {
+      "open": {
+        "name": "Open"
+      }
+    },
+    "event": {
+      "wall_button": {
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "press": "Pressed"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "gate": {
+        "name": "Gate"
+      }
+    }
+  },
+  "exceptions": {
+    "auth_failed": {
+      "message": "FYES no longer accepts this connection. Sign in again from the FYES integration."
+    },
+    "cannot_connect": {
+      "message": "Could not reach FYES: {error}"
+    },
+    "command_failed": {
+      "message": "FYES could not run the command: {error}"
+    },
+    "forbidden": {
+      "message": "Your FYES account may not control this."
+    },
+    "gateway_offline": {
+      "message": "The home's FYES gateway is offline, so nothing was sent."
+    },
+    "invalid_command": {
+      "message": "FYES rejected the command: {error}"
+    },
+    "not_delivered": {
+      "message": "FYES sent the command, but the building did not confirm it: {error}"
+    },
+    "rate_limited": {
+      "message": "Too many commands in a short time. Try again in a minute."
+    },
+    "security_not_allowed": {
+      "message": "Your FYES account may not change the security mode."
+    },
+    "snapshot_failed": {
+      "message": "Could not load the FYES home: {error}"
+    }
+  }
+}
