@@ -22,8 +22,6 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # Remove once the FYES icon is merged into home-assistant/brands.
-          ignore: brands
 
   tests:
     runs-on: ubuntu-latest

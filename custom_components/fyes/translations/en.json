@@ -98,7 +98,7 @@
       "already_configured": "This FYES home is already set up.",
       "already_in_progress": "This FYES home is already being set up. Finish or close that window first.",
       "cannot_connect": "Could not reach FYES. Check the internet connection and try again.",
-      "no_homes": "This account has no FYES home yet.",
+      "no_homes": "This FYES account is not part of any home. Sign in with the email you use for your home in the FYES app, or ask the home's owner to add you (FYES app → Users & access).",
       "not_allowed": "This account may not connect this home to Home Assistant.",
       "reauth_successful": "Signed in again. The FYES home is connected.",
       "reconfigure_successful": "The FYES server was changed.",
